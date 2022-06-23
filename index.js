@@ -3,6 +3,8 @@ import http from "http";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 
+import db from "./db.js";
+
 const app = express();
 dotenv.config();
 
@@ -24,3 +26,7 @@ io.on("connection", (socket) => {
 server.listen(process.env.PORT, () => {
   console.log("Websocket server is running");
 });
+
+const teste = await db.query("SELECT * FROM users WHERE id = 6");
+
+console.log(teste.rows[0].userName);
