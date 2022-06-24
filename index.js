@@ -7,23 +7,15 @@ const dotenv = require("dotenv");
 
 //import db from "./db.js";
   
-//app.use(cors());
+app.use(cors());
 dotenv.config();
 
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origins: ["*"],
-
-        handlePreflightRequest: (req, res) => {
-            res.writeHead(200, {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST",
-                "Access-Control-Allow-Headers": "my-custom-header",
-                "Access-Control-Allow-Credentials": true,
-            });
-            res.end();
-        }}
+        origin: "*",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+    }
 });
 
 
