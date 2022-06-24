@@ -6,33 +6,25 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 //import db from "./db.js";
-
-//ENABLE CORS
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   
-   // Add this
-   if (req.method === 'OPTIONS') {
-  
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, OPTIONS');
-        res.header('Access-Control-Max-Age', 120);
-        return res.status(200).json({});
-    }
-  
-    next();
-  
-  });
-  
-
 //app.use(cors());
 dotenv.config();
 
 const server = http.createServer(app);
-const io = new Server(server, 
-    { cors: true, origin: "http://localhost:3000" }
-  );
+const io = new Server(server, {
+    cors: {
+        origins: ["*"],
+
+        handlePreflightRequest: (req, res) => {
+            res.writeHead(200, {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST",
+                "Access-Control-Allow-Headers": "my-custom-header",
+                "Access-Control-Allow-Credentials": true,
+            });
+            res.end();
+        }}
+});
 
 
 /*const express = require("express");
