@@ -30,11 +30,9 @@ app.use(function(req, res, next) {
 dotenv.config();
 
 const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: ["http://localhost:3000", "https://git.heroku.com/projeto17-websocket.git"],
-    },
-  });
+const io = new Server(server, 
+    { cors: true, origin: "http://localhost:3000" }
+  );
 
 
 /*const express = require("express");
